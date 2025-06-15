@@ -1,0 +1,8 @@
+create table if not exists Tienda
+(
+	Rut_tienda serial primary key,
+	Nombre_Tienda varchar(100),
+	Region varchar(100),
+	Comuna varchar(100)
+		
+);
