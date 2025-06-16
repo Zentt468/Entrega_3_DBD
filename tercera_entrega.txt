@@ -6,3 +6,24 @@ create table if not exists Tienda
 	Comuna varchar(100)
 		
 );
+
+create table if not exists Ranking
+(
+	ID_Ranking 			serial 		primary key,
+	CartasDeseadas 		integer,
+	JuegoMesaDeseados 	integer
+);
+
+create table if not exists Lista_de_Deseados
+(
+	ID_ListaDeseados 	serial 		primary key,
+	ContadorElementos 	integer
+);
+
+create table if not exists Lista_de_Deseados_X_Ranking
+(
+	ID_ListaDeseados	integer,
+	ID_Ranking			integer,
+	FOREIGN KEY (ID_ListaDeseados) REFERENCES Lista_de_Deseados(Id_ListaDeseados),
+	FOREIGN KEY (ID_Ranking) REFERENCES Ranking(ID_Ranking)
+);
