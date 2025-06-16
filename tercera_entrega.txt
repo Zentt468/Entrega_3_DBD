@@ -7,6 +7,29 @@ create table if not exists Tienda
 		
 );
 
+create table if not exists Producto
+(
+	ID_Producto serial primary key,
+	Descripcion varchar(1500),
+	Tipo_Prodcuto varchar(100),
+	Numero_Ventas_producto integer,
+	Rut_tienda integer,
+	Rut_usuario integer,
+	FOREIGN KEY (Rut_tienda) REFERENCES Tienda(Rut_tienda),
+	FOREIGN KEY (Rut_usuario) REFERENCES Usuario(Rut_usuario)
+);
+
+create table if not exists Valoracion
+(
+	ID_Valoracion serial primary key,
+	Puntaje integer,
+	Comentario varchar(500),
+	ID_Producto integer,
+	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+
+);
+
+
 create table if not exists Ranking
 (
 	ID_Ranking 			serial 		primary key,
