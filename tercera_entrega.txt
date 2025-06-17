@@ -77,7 +77,7 @@ CREATE TABLE ProductoXCarroDeCompra (
 
 CREATE TABLE IF NOT EXISTS usuario
 (
-	Rut_usuario char(10),
+	Rut_usuario char(12),
 	Nombre_usuario varchar(15),
 	Apellido_usUario varchar(15),
 	Contraseña_usuario varchar(50),
@@ -96,13 +96,14 @@ CREATE TABLE IF NOT EXISTS Carta
 (
 	ID_Carta serial,
 	Nombre_Carta varchar(20),
-	Precio_Carta varchar(10),
+	Precio_Carta int,
 	Rareza_Carta varchar(10),
 	Stock_Carta int,
 	URL_Carta varchar(400),
 	Estado_Carta varchar(10),
 	Año_Cart Date,
 	ID_Producto serial,
+	PRIMARY KEY (ID_Carta),
 	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
 );
 
@@ -110,8 +111,9 @@ CREATE TABLE IF NOT EXISTS Juego_de_mesa
 (
 	ID_JuegoMesa serial,
 	Nombre_JuegoMesa varchar(20),
-	Precio_JuegoMesa varchar(20),
+	Precio_JuegoMesa int,
 	Stock_JuegoMesa int,
 	ID_Producto serial,
+	PRIMARY KEY (ID_JuegoMesa),
 	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
 );
