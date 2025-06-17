@@ -74,3 +74,44 @@ CREATE TABLE ProductoXCarroDeCompra (
     FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto),
     FOREIGN KEY (ID_carro_compras) REFERENCES Carro_de_compra(ID_carro_compras)
 );
+
+CREATE TABLE IF NOT EXISTS usuario
+(
+	Rut_usuario char(10),
+	Nombre_usuario varchar(15),
+	Apellido_usUario varchar(15),
+	Contraseña_usuario varchar(50),
+	Comuna_usuario varchar(25),
+	Region_usuario varchar(25),
+	Correo_usuario varchar(25),
+	FechaNacimineto_usuario DATE,
+	ID_ListaDeseados serial,
+	ID_valoracion serial
+	PRIMARY KEY (Rut_usuario),
+	FOREIGN KEY (ID_ListaDeseados) REFERENCES Lista_de_deseados(ID_ListaDeseados),
+	FOREIGN KEY (ID_valoracion) REFERENCES Valoracion(ID_valoracion)
+);
+
+CREATE TABLE IF NOT EXISTS Carta
+(
+	ID_Carta serial,
+	Nombre_Carta varchar(20),
+	Precio_Carta varchar(10),
+	Rareza_Carta varchar(10),
+	Stock_Carta int,
+	URL_Carta varchar(400),
+	Estado_Carta varchar(10),
+	Año_Cart Date,
+	ID_Producto serial,
+	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
+
+CREATE TABLE IF NOT EXISTS Juego_de_mesa
+(
+	ID_JuegoMesa serial,
+	Nombre_JuegoMesa varchar(20),
+	Precio_JuegoMesa varchar(20),
+	Stock_JuegoMesa int,
+	ID_Producto serial,
+	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
