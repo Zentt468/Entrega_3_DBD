@@ -50,3 +50,27 @@ create table if not exists Lista_de_Deseados_X_Ranking
 	FOREIGN KEY (ID_ListaDeseados) REFERENCES Lista_de_Deseados(Id_ListaDeseados),
 	FOREIGN KEY (ID_Ranking) REFERENCES Ranking(ID_Ranking)
 );
+
+CREATE TABLE Permisos (
+    ID_Permisos INT PRIMARY KEY,
+    Acciones VARCHAR(255)
+);
+
+
+CREATE TABLE ProductoXListaDeseados (
+    ID_Producto INT,
+    ID_ListaDeseados INT,
+    Cantidad_Producto INT,
+    Fecha_Guardado DATE,
+    PRIMARY KEY (ID_Producto, ID_ListaDeseados),
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto),
+    FOREIGN KEY (ID_ListaDeseados) REFERENCES ListaDeseados(ID_ListaDeseados)
+);
+
+CREATE TABLE ProductoXCarroDeCompra (
+    ID_Producto INT,
+    ID_carro_compras INT,
+    PRIMARY KEY (ID_Producto, ID_carro_compras),
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto),
+    FOREIGN KEY (ID_carro_compras) REFERENCES Carro_de_compra(ID_carro_compras)
+);
