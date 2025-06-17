@@ -117,3 +117,38 @@ CREATE TABLE IF NOT EXISTS Juego_de_mesa
 	PRIMARY KEY (ID_JuegoMesa),
 	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
 );
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS Rol (
+    nombre_rol VARCHAR(50),
+    id_permisos INT,
+    rut_usuario VARCHAR(12),
+    PRIMARY KEY (id_permisos, rut_usuario), 
+    FOREIGN KEY (id_permisos) REFERENCES Permisos(id_permisos),
+    FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut_usuario)
+);
+
+
+CREATE TABLE IF NOT EXISTS Carro_de_Compra (
+    id_carro_compra INT PRIMARY KEY,
+    precio_total INT,
+    rut_tienda VARCHAR(12),
+    rut_usuario VARCHAR(12),
+    FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut_usuario),
+    FOREIGN KEY (rut_tienda) REFERENCES Tienda(rut_tienda)
+);
+
+
+CREATE TABLE IF NOT EXISTS Boleta (
+    id_boleta INT PRIMARY KEY,
+    monto_final INT,
+    fecha_boleta DATE,
+    metodo_pago_boleta VARCHAR(30),
+    id_carro_compra INT,
+    FOREIGN KEY (id_carro_compra) REFERENCES Carro_de_Compra(id_carro_compra)
+);
