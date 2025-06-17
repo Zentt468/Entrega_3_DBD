@@ -1,0 +1,3 @@
+TABLAS Permisos
+Tabla ProductoXListaDeseados
+Tabla ProductoXCarroDeCompra
