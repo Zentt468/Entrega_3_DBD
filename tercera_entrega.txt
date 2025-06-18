@@ -1,154 +1,121 @@
-create table if not exists Tienda
-(
-	Rut_tienda serial primary key,
-	Nombre_Tienda varchar(100),
-	Region varchar(100),
-	Comuna varchar(100)
-		
-);
 
-create table if not exists Producto
-(
-	ID_Producto serial primary key,
-	Descripcion varchar(1500),
-	Tipo_Prodcuto varchar(100),
-	Numero_Ventas_producto integer,
-	Rut_tienda integer,
-	Rut_usuario integer,
-	FOREIGN KEY (Rut_tienda) REFERENCES Tienda(Rut_tienda),
-	FOREIGN KEY (Rut_usuario) REFERENCES Usuario(Rut_usuario)
-);
-
-create table if not exists Valoracion
-(
-	ID_Valoracion serial primary key,
-	Puntaje integer,
-	Comentario varchar(500),
-	ID_Producto integer,
-	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
-
-);
-
-
-create table if not exists Ranking
-(
-	ID_Ranking 			serial 		primary key,
-	CartasDeseadas 		integer,
-	JuegoMesaDeseados 	integer
-);
-
-create table if not exists Lista_de_Deseados
-(
-	ID_ListaDeseados 	serial 		primary key,
-	ContadorElementos 	integer
-);
-
-create table if not exists Lista_de_Deseados_X_Ranking
-(
-	ID_ListaDeseados	integer,
-	ID_Ranking			integer,
-	FOREIGN KEY (ID_ListaDeseados) REFERENCES Lista_de_Deseados(Id_ListaDeseados),
-	FOREIGN KEY (ID_Ranking) REFERENCES Ranking(ID_Ranking)
-);
-
-CREATE TABLE Permisos (
-    ID_Permisos INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Permisos (
+    ID_Permisos SERIAL PRIMARY KEY,
     Acciones VARCHAR(255)
 );
 
 
-CREATE TABLE ProductoXListaDeseados (
-    ID_Producto INT,
-    ID_ListaDeseados INT,
-    Cantidad_Producto INT,
+CREATE TABLE IF NOT EXISTS Tienda (
+    Rut_tienda VARCHAR(12) PRIMARY KEY,
+    Nombre_Tienda VARCHAR(100),
+    Region VARCHAR(100),
+    Comuna VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS Usuario (
+    Rut_usuario VARCHAR(12) PRIMARY KEY,
+    Nombre_usuario VARCHAR(15),
+    Apellido_usuario VARCHAR(15),
+    Contraseña_usuario VARCHAR(50),
+    Comuna_usuario VARCHAR(25),
+    Region_usuario VARCHAR(25),
+    Correo_usuario VARCHAR(25),
+    FechaNacimiento_usuario DATE
+);
+
+
+CREATE TABLE IF NOT EXISTS Producto (
+    ID_Producto SERIAL PRIMARY KEY,
+    Descripcion VARCHAR(1500),
+    Tipo_Producto VARCHAR(100),
+    Numero_Ventas_producto INTEGER,
+    Rut_tienda VARCHAR(12),
+    Rut_usuario VARCHAR(12),
+    FOREIGN KEY (Rut_tienda) REFERENCES Tienda(Rut_tienda),
+    FOREIGN KEY (Rut_usuario) REFERENCES Usuario(Rut_usuario)
+);
+
+
+CREATE TABLE IF NOT EXISTS Valoracion (
+    ID_Valoracion SERIAL PRIMARY KEY,
+    Puntaje INTEGER,
+    Comentario VARCHAR(500),
+    ID_Producto INTEGER,
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
+
+
+ALTER TABLE Usuario
+ADD COLUMN ID_valoracion INTEGER,
+ADD FOREIGN KEY (ID_valoracion) REFERENCES Valoracion(ID_Valoracion);
+
+
+CREATE TABLE IF NOT EXISTS Detalle_producto (
+    ID_Producto INTEGER PRIMARY KEY,
+    Cantidad_Producto INTEGER,
     Fecha_Guardado DATE,
-    PRIMARY KEY (ID_Producto, ID_ListaDeseados),
-    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto),
-    FOREIGN KEY (ID_ListaDeseados) REFERENCES ListaDeseados(ID_ListaDeseados)
-);
-
-CREATE TABLE ProductoXCarroDeCompra (
-    ID_Producto INT,
-    ID_carro_compras INT,
-    PRIMARY KEY (ID_Producto, ID_carro_compras),
-    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto),
-    FOREIGN KEY (ID_carro_compras) REFERENCES Carro_de_compra(ID_carro_compras)
-);
-
-CREATE TABLE IF NOT EXISTS usuario
-(
-	Rut_usuario char(12),
-	Nombre_usuario varchar(15),
-	Apellido_usUario varchar(15),
-	Contraseña_usuario varchar(50),
-	Comuna_usuario varchar(25),
-	Region_usuario varchar(25),
-	Correo_usuario varchar(25),
-	FechaNacimineto_usuario DATE,
-	ID_ListaDeseados serial,
-	ID_valoracion serial
-	PRIMARY KEY (Rut_usuario),
-	FOREIGN KEY (ID_ListaDeseados) REFERENCES Lista_de_deseados(ID_ListaDeseados),
-	FOREIGN KEY (ID_valoracion) REFERENCES Valoracion(ID_valoracion)
-);
-
-CREATE TABLE IF NOT EXISTS Carta
-(
-	ID_Carta serial,
-	Nombre_Carta varchar(20),
-	Precio_Carta int,
-	Rareza_Carta varchar(10),
-	Stock_Carta int,
-	URL_Carta varchar(400),
-	Estado_Carta varchar(10),
-	Año_Cart Date,
-	ID_Producto serial,
-	PRIMARY KEY (ID_Carta),
-	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
-);
-
-CREATE TABLE IF NOT EXISTS Juego_de_mesa
-(
-	ID_JuegoMesa serial,
-	Nombre_JuegoMesa varchar(20),
-	Precio_JuegoMesa int,
-	Stock_JuegoMesa int,
-	ID_Producto serial,
-	PRIMARY KEY (ID_JuegoMesa),
-	FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
 );
 
 
+CREATE TABLE IF NOT EXISTS Carta (
+    ID_Carta SERIAL PRIMARY KEY,
+    Nombre_Carta VARCHAR(20),
+    Precio_Carta INT,
+    Rareza_Carta VARCHAR(10),
+    Stock_Carta INT,
+    URL_Carta VARCHAR(400),
+    Estado_Carta VARCHAR(10),
+    Año_Carta DATE,
+    ID_Producto INTEGER,
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
 
 
-
-
-
-CREATE TABLE IF NOT EXISTS Rol (
-    nombre_rol VARCHAR(50),
-    id_permisos INT,
-    rut_usuario VARCHAR(12),
-    PRIMARY KEY (id_permisos, rut_usuario), 
-    FOREIGN KEY (id_permisos) REFERENCES Permisos(id_permisos),
-    FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut_usuario)
+CREATE TABLE IF NOT EXISTS Juego_de_mesa (
+    ID_JuegoMesa SERIAL PRIMARY KEY,
+    Nombre_JuegoMesa VARCHAR(20),
+    Precio_JuegoMesa INT,
+    Stock_JuegoMesa INT,
+    ID_Producto INTEGER,
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
 );
 
 
 CREATE TABLE IF NOT EXISTS Carro_de_Compra (
-    id_carro_compra INT PRIMARY KEY,
-    precio_total INT,
-    rut_tienda VARCHAR(12),
-    rut_usuario VARCHAR(12),
-    FOREIGN KEY (rut_usuario) REFERENCES Usuario(rut_usuario),
-    FOREIGN KEY (rut_tienda) REFERENCES Tienda(rut_tienda)
+    ID_carro_compra SERIAL PRIMARY KEY,
+    Precio_total INT,
+    Rut_tienda VARCHAR(12),
+    Rut_usuario VARCHAR(12),
+    FOREIGN KEY (Rut_usuario) REFERENCES Usuario(Rut_usuario),
+    FOREIGN KEY (Rut_tienda) REFERENCES Tienda(Rut_tienda)
+);
+
+
+CREATE TABLE IF NOT EXISTS ProductoXCarroDeCompra (
+    ID_Producto INTEGER,
+    ID_carro_compras INTEGER,
+    PRIMARY KEY (ID_Producto, ID_carro_compras),
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto),
+    FOREIGN KEY (ID_carro_compras) REFERENCES Carro_de_Compra(ID_carro_compra)
 );
 
 
 CREATE TABLE IF NOT EXISTS Boleta (
-    id_boleta INT PRIMARY KEY,
-    monto_final INT,
-    fecha_boleta DATE,
-    metodo_pago_boleta VARCHAR(30),
-    id_carro_compra INT,
-    FOREIGN KEY (id_carro_compra) REFERENCES Carro_de_Compra(id_carro_compra)
+    ID_boleta SERIAL PRIMARY KEY,
+    Monto_final INT,
+    Fecha_boleta DATE,
+    Metodo_pago_boleta VARCHAR(30),
+    ID_carro_compra INTEGER,
+    FOREIGN KEY (ID_carro_compra) REFERENCES Carro_de_Compra(ID_carro_compra)
+);
+
+
+CREATE TABLE IF NOT EXISTS Rol (
+    Nombre_rol VARCHAR(50),
+    ID_permisos INTEGER,
+    Rut_usuario VARCHAR(12),
+    PRIMARY KEY (ID_permisos, Rut_usuario),
+    FOREIGN KEY (ID_permisos) REFERENCES Permisos(ID_Permisos),
+    FOREIGN KEY (Rut_usuario) REFERENCES Usuario(Rut_usuario)
 );
