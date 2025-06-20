@@ -1,0 +1,122 @@
+
+-- Permisos Emiliano
+INSERT INTO Permisos (Acciones) VALUES 
+('Gestionar usuarios'),
+('Comprar productos'),
+('Vender productos'),
+('Modificar catálogo'),
+('Solo lectura');
+
+-- Tiendas Emiliano
+INSERT INTO Tienda (Rut_tienda, Nombre_Tienda, Region, Comuna)
+VALUES 
+('96864936-4','Games Store','Arica y Parinacota','Arica'),
+('46634948-8','Best Store','Metropolitana','Lo Prado'),
+('56474979-2','TGC Store','Tarapacá','Iquique'),
+('46234954-2','TGC SHOP','Los Ríos','Valdivia'),
+('86137934-9','God Store','Metropolitana','Maipú');
+
+-- Usuarios Felipe
+INSERT INTO Usuario(Rut_usuario, Nombre_usuario, Apellido_usuario, Contraseña_usuario, Comuna_usuario, Region_usuario, Correo_usuario, FechaNacimiento_usuario)
+VALUES
+('54196252-1', 'Felipe', 'Flores', '1234', 'Estación Central', 'O’Higgins', 'correo1@gmail.com', '2019-11-01'),
+('92141189-2', 'Carlos', 'Perez', '4321', 'Maipú', 'Metropolitana', 'correo2@gmail.com', '2017-10-20'),
+('88888888-3', 'Pedro', 'Espinoza', '5678', 'Puente Alto', 'Metropolitana', 'correo3@gmail.com', '2013-12-12'),
+('13354765-2', 'Diego', 'Maradona', '6542', 'Miraflores', 'O’Higgins', 'correo4@gmail.com', '2015-09-01'),
+('65432146-5', 'Juan', 'Castro', 'pepitolospalotes1234', 'Puente Alto', 'Metropolitana', 'correo5@gmail.com', '2012-02-05');
+
+-- Productos (IDs 1 a 12) Felipe
+INSERT INTO Producto (Descripcion, Tipo_Producto, Numero_Ventas_producto, Rut_tienda, Rut_usuario) VALUES
+('Set de cartas mágicas', 'Carta', 1, '96864936-4', '54196252-1'),
+('Juego de estrategia medieval', 'Juego de Mesa', 5, '46634948-8', '92141189-2'),
+('Juego de detectives', 'Juego de Mesa', 9, '96864936-4', '88888888-3'),
+('Cartas coleccionables raras', 'Carta', 23, '46634948-8', '13354765-2'),
+('Juego familiar rápido', 'Juego de Mesa', 2, '96864936-4', '65432146-5'),
+('Carta dinosaurio Gabu', 'Carta', 10, '96864936-4', '54196252-1'),
+('Carta dinosaurio Rex', 'Carta', 8, '96864936-4', '54196252-1'),
+('Carta dinosaurio As', 'Carta', 5, '96864936-4', '54196252-1'),
+('Carta dinosaurio Paris', 'Carta', 12, '96864936-4', '54196252-1'),
+('Carta dinosaurio Spiny', 'Carta', 7, '96864936-4', '54196252-1'),
+('Juego de mesa Warhammer', 'Juego de Mesa', 2, '96864936-4', '54196252-1'),
+('Juego de mesa Deep Rock', 'Juego de Mesa', 3, '96864936-4', '54196252-1');
+
+-- Detalle_producto Diego
+INSERT INTO Detalle_producto (ID_Producto, Cantidad_Producto, Fecha_Guardado)
+VALUES
+(1, 10, '2024-01-01'),
+(2, 5, '2024-01-01'),
+(3, 7, '2024-01-02'),
+(4, 3, '2024-01-03'),
+(5, 8, '2024-01-04');
+
+-- Carta Isidora
+INSERT INTO Carta (Nombre_Carta, Precio_Carta, Rareza_Carta, Stock_Carta, URL_Carta, Estado_Carta, Año_Carta, ID_Producto)
+VALUES
+('Dragón Azul', 1500, 'Rara', 10, 'https://img.com/dragon.jpg', 'Nueva', '2022-01-01', 1),
+('Fénix Rojo', 2000, 'Épica', 5, 'https://img.com/fenix.jpg', 'Nueva', '2021-06-15', 4),
+('Tyrannosaurus(Gabu)', 7990, 'Legendaria', 6, 'https://example.com/gabu.jpg', 'Nuevo', '2022-03-15', 6),
+('Triceratops(Rex)', 5990, 'Épica', 10, 'https://example.com/rex.jpg', 'Nuevo', '2023-07-10', 7),
+('Carnotaurus(As)', 6990, 'Legendaria', 5, 'https://example.com/as.jpg', 'Nuevo', '2024-04-30', 8),
+('Pachycephalo(Paris)', 5490, 'Rara', 12, 'https://example.com/paris.jpg', 'Nuevo', '2021-11-22', 9),
+('Saichania (Spiny)', 4790, 'Épica', 8, 'https://example.com/spiny.jpg', 'Nuevo', '2022-01-08', 10);
+
+-- Juego_de_mesa Pablo
+INSERT INTO Juego_de_mesa (Nombre_JuegoMesa, Precio_JuegoMesa, Stock_JuegoMesa, ID_Producto)
+VALUES 
+('Catan', 29990, 20, 2),
+('Dixit', 19990, 25, 3),
+('Exploding Kittens', 14990, 10, 5),
+('Warhammer',25990, 20, 11),
+('Deep Rock galactic', 20990, 20, 12);
+
+-- Carro_de_Compra Diego
+INSERT INTO Carro_de_Compra (Precio_total, Rut_tienda, Rut_usuario)
+VALUES
+(100000, '96864936-4', '54196252-1'),
+(85000, '46634948-8', '92141189-2'),
+(75000, '96864936-4', '88888888-3'),
+(120000, '46634948-8', '13354765-2'),
+(95000, '96864936-4', '65432146-5');
+
+-- ProductoXCarroDeCompra Isidora
+INSERT INTO ProductoXCarroDeCompra (ID_Producto, ID_carro_compras)
+VALUES 
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
+
+-- Boleta Isidora
+INSERT INTO Boleta (Monto_final, Fecha_boleta, Metodo_pago_boleta, ID_carro_compra)
+VALUES
+(100000, '2024-06-01', 'Tarjeta Débito', 1),
+(85000, '2024-06-02', 'Tarjeta Crédito', 2),
+(75000, '2024-06-03', 'Efectivo', 3),
+(120000, '2024-06-04', 'Transferencia', 4),
+(95000, '2024-06-05', 'Tarjeta Débito', 5);
+
+-- Valoracion Felipe
+INSERT INTO Valoracion (Puntaje, Comentario, ID_Producto)
+VALUES
+(5, 'Excelente carta, muy detallada', 1),
+(3, 'Buen juego, pero faltan piezas', 2),
+(4, 'Muy entretenido para jugar en grupo', 3),
+(5, 'El arte está genial', 4),
+(2, 'Precio alto para lo que ofrece', 5);
+
+-- Actualizar usuarios con ID_Valoracion Felipe
+UPDATE Usuario SET ID_valoracion = 1 WHERE Rut_usuario = '54196252-1';
+UPDATE Usuario SET ID_valoracion = 2 WHERE Rut_usuario = '92141189-2';
+UPDATE Usuario SET ID_valoracion = 3 WHERE Rut_usuario = '88888888-3';
+UPDATE Usuario SET ID_valoracion = 4 WHERE Rut_usuario = '13354765-2';
+UPDATE Usuario SET ID_valoracion = 5 WHERE Rut_usuario = '65432146-5';
+
+-- Rol Pablo
+INSERT INTO Rol (Nombre_rol, ID_permisos, Rut_usuario)
+VALUES
+('Administrador', 1, '54196252-1'),
+('Cliente', 2, '92141189-2'),
+('Vendedor', 3, '88888888-3'),
+('Moderador', 4, '13354765-2'),
+('Invitado', 5, '65432146-5');
