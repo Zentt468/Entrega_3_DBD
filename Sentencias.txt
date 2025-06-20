@@ -1,0 +1,48 @@
+1-- Pablo
+ 
+INSERT INTO ProductoXCarroDeCompra (ID_Producto, ID_carro_compras)
+VALUES (3, 2);
+
+2---- Isidora
+
+DELETE FROM ProductoXCarroDeCompra
+WHERE ID_Producto = 3 AND ID_carro_compras = 2;
+
+3----Felipe
+
+SELECT Producto.ID_Producto, Producto.Descripcion, Producto.Tipo_Producto
+FROM ProductoXCarroDeCompra
+JOIN Producto ON ProductoXCarroDeCompra.ID_Producto = Producto.ID_Producto
+WHERE ProductoXCarroDeCompra.ID_carro_compras = 1;
+
+4--- Emiliano
+SELECT SUM(Carta.Precio_Carta)
+FROM ProductoXCarroDeCompra
+JOIN Carta ON ProductoXCarroDeCompra.ID_Producto = Carta.ID_Producto
+WHERE ProductoXCarroDeCompra.ID_carro_compras = 1;SELECT SUM(Carta.Precio_Carta)
+FROM ProductoXCarroDeCompra
+JOIN Carta ON ProductoXCarroDeCompra.ID_Producto = Carta.ID_Producto
+WHERE ProductoXCarroDeCompra.ID_carro_compras = 1;
+
+
+5---Pablo
+SELECT Producto.ID_Producto, Producto.Descripcion, Producto.Tipo_Producto, Tienda.Region
+FROM Producto
+JOIN Tienda ON Producto.Rut_tienda = Tienda.Rut_tienda
+WHERE Tienda.Region = 'Metropolitana';
+
+6-------Isidora
+SELECT ID_Producto, Descripcion, Numero_Ventas_producto
+FROM Producto
+ORDER BY Numero_Ventas_producto DESC
+
+7--- Diego
+
+SELECT 
+    DP.ID_Producto,
+    P.Descripcion,
+    P.Tipo_Producto,
+    DP.Cantidad_Producto,
+    DP.Fecha_Guardado
+FROM Detalle_producto DP
+JOIN Producto P ON DP.ID_Producto = P.ID_Producto
